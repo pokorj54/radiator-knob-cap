@@ -15,11 +15,18 @@ module radiator_knob_cap(
     hidden_outer_diameter,
     inner_diameter,
     n_teeth,
-    wall_width
+    wall_width,
+    taper_ring_size,
+    taper_ring_offset
     ){
+$fa=0.1;
         // vertical walls
         ring(height, outer_diameter, wall_width);
         ring(height, hidden_outer_diameter, wall_width);
+        translate([0,,0,taper_ring_offset+taper_ring_size])
+            rotate_extrude()
+                translate([outer_diameter/2-wall_width,0])
+                    circle(r=taper_ring_size);
         // top
         translate([0,0,height])
             difference(){
@@ -47,8 +54,10 @@ module radiator_knob_cap(
 
 radiator_knob_cap(
 height=4,
-outer_diameter=47,
+outer_diameter=47.1,
 hidden_outer_diameter=40,
-inner_diameter=29,
+inner_diameter=30,
 n_teeth=50, 
-wall_width=1);
+wall_width=1,
+taper_ring_size=0.3,
+taper_ring_offset =0);
